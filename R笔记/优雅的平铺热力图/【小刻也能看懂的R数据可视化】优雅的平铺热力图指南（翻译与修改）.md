@@ -1,10 +1,10 @@
-# 【小刻也能看懂的R数据可视化】优雅的平铺热力图指南（翻译）
+# 【小刻也能看懂的R数据可视化】优雅的平铺热力图指南（翻译与修改）
 
 > 原文链接：https://www.royfrancis.com/a-guide-to-elegant-tiled-heatmaps-in-r-2019/
 >
 > 包含数据集来源与下载。
 >
-> PDF或md文件下载：https://github.com/Kaede0614/typoranotebook
+> pdf或md文件下载：https://github.com/Kaede0614/typoranotebook
 
 - 数据集：~~源石病~~ 麻疹一级发病率（每10万人）
 - 目的：绘制简洁、干净、优雅的热力图
