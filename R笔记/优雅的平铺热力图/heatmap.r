@@ -124,4 +124,25 @@ library(RColorBrewer)
 #change the scale_fill_manual from previous code to below
 # scale_fill_manual(values=rev(brewer.pal(7,"YlGnBu")),na.value="grey90")+
 
-
+p <- ggplot(m4,aes(x=year,y=state,fill=countfactor))+
+  geom_tile(colour="white",size=0.2)+
+  guides(fill=guide_legend(title="Cases per\n100,000 people"))+
+  labs(x="",y="",title="Incidence of Measles in the US")+
+  scale_y_discrete(expand=c(0,0))+
+  scale_x_discrete(expand=c(0,0),breaks=c("1930","1940","1950","1960","1970","1980","1990","2000"))+
+  scale_fill_manual(values=rev(brewer.pal(7,"YlGnBu")),na.value="grey90")+
+  #coord_fixed()+
+  theme_grey(base_size=10)+
+  theme(legend.position="right",legend.direction="vertical",
+        legend.title=element_text(colour=textcol),
+        legend.margin=margin(grid::unit(0,"cm")),
+        legend.text=element_text(colour=textcol,size=7,face="bold"),
+        legend.key.height=grid::unit(0.8,"cm"),
+        legend.key.width=grid::unit(0.2,"cm"),
+        axis.text.x=element_text(size=10,colour=textcol),
+        axis.text.y=element_text(vjust=0.2,colour=textcol),
+        axis.ticks=element_line(size=0.4),
+        plot.background=element_blank(),
+        panel.border=element_blank(),
+        plot.margin=margin(0.7,0.4,0.1,0.2,"cm"),
+        plot.title=element_text(colour=textcol,hjust=0,size=14,face="bold"))
