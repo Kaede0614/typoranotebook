@@ -1,6 +1,8 @@
 # 【小刻也能看懂的R数据可视化】好康的circos图（翻译与修改）
 
 > 原文链接：https://www.royfrancis.com/beautiful-circos-plots-in-r/
+>
+> pdf或md文件下载：https://github.com/Kaede0614/typoranotebook
 
 效果预览：
 
