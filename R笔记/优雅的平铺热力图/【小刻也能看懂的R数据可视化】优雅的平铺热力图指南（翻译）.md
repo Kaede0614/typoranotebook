@@ -4,7 +4,7 @@
 >
 > 包含数据集来源与下载。
 >
-> PDF或md文件下载：
+> PDF或md文件下载：https://github.com/Kaede0614/typoranotebook
 
 - 数据集：~~源石病~~ 麻疹一级发病率（每10万人）
 - 目的：绘制简洁、干净、优雅的热力图
