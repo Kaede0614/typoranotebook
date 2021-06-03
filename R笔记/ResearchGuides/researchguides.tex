@@ -1,0 +1,971 @@
+\documentclass[cn,hazy,blue,14pt,screen]{elegantnote} % 幻灯片
+% \documentclass[cn,hazy,blue,14pt,normal]{elegantnote} % A4纸
+
+% 导言区
+\title{如何\textcolor{orange}{组织}一篇论文？}
+
+\author{缪啸宇}
+\institute{南航经管}
+\date{\zhtoday}
+
+\usepackage{array}
+\usepackage{tcolorbox}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fontspec}
+\usepackage{ulem} % 删除线的包
+
+% \setCJKmainfont{Microsoft YaHei} % 字体设置为雅黑
+
+% ———————————————————————————
+% 正文区
+\begin{document}
+
+\maketitle
+
+\centerline{
+  \includegraphics[height=8cm]{1}}
+
+% 写在前面的前面
+\newpage
+
+\textcolor{orange}{\Large{写在前面的前面}}
+
+这块是我完成整个文档后回过头来写的。这份写作指南是我在修改论文过程中查资料时偶遇的，当时只看了下摘要部分。后来等到论文实在改不下去我开始怀疑人生的时候想到了这份指南，认为自己亟需一份对论文结构和细节的指导。大略翻了翻初步感觉东西不错，有些干货，便萌生了翻译的想法。一方面在翻译过程中加深理解，一方面作为入门\LaTeX{}的小练习。顺带的，如果对其他人也有用，那再好不过了。
+
+我翻译的内容大概占到原文的1/4$\sim$1/3左右。这是因为原文文本量实在太大，加上重复和对我个人帮助不大的地方也不少。再考虑到自己并特意想翻译，只是作为加深个人理解的一个副产品，因此做了大幅度的精简。有兴趣可以去看原文，但我个人觉得没必要。在翻译的过程中，我回顾自己亲身的写作和修改经验，对写作指南中的一些观点确实非常认同，感觉还是有不小的收获。
+
+由于本人翻译水平有限，加上时间紧张\lstinline{（3天完成了本文档的翻译和写作）}，因此难免会出现一些错误，希望能指正。另外由于时间有限事情多，本文档不会做结构性的修改，初稿即定稿。如果需要更多信息推荐去原网站阅读。
+
+另外个人偏好原因，文档默认设置是幻灯片格式。如果需要ipad适配的格式或者A4纸格式，可以联系我，当然我更推荐你直接自己去改，在源代码开头动一个小小的参数即可。需要tex文档的压缩包也可以联系我。
+
+% 写在前面
+\newpage
+
+\textcolor{orange}{\Large{写在前面}}
+
+本文档是我出于兴趣和个人需要，对南加州大学一份论文写作指南《\textcolor{cyan}{Organizing Your Social Sciences Research Paper》}\footnote{\href{https://libguides.usc.edu/writingguide}{https://libguides.usc.edu/writingguide}}的部分翻译\textcolor{magenta}{\footnotesize{（或者视为中文笔记）}}。翻译这篇文档的动力如下：
+
+\begin{itemize}
+    \item USC也是个名校，这文档翻了翻确实有好东西。
+    \item 第一次写论文，文章骨架或多或少都有点问题。
+    \item 论文修改不是造毛坯，是雕琢，需要注意细节。
+    \item 刚接触\LaTeX{}正好练练手。本文档是用\LaTeX{}写的。
+\end{itemize}
+
+\textcolor{red}{注意}：本文档不是逐字逐句翻译。个人感觉用途不大的部分没有翻译；并且为方便理解和精简字数，在原文意思上的重构较多。简单来说本文档是\textcolor{magenta}{翻译+笔记}。如果有兴趣，可以去看原文。
+
+
+% 第一章
+\newpage    % 不加这个命令的话，正文内容会出现的封面中。这个是让正文从新的一页开始的命令
+\section{在写论文前，你需要注意什么？}
+
+\begin{itemize}
+    \item \textcolor{magenta}{研究方向不明确}：研究方向不要太宽泛，避免用含糊的限定词，如：extremely、very、entirely、completely等。你需要将研究过程清晰且简洁地描述出来，否则读者没法确定你到底想做什么。
+    \item \textcolor{magenta}{研究问题定义不清}：社科研究的起点是陈述并明确界定一个问题并思考如何去解决这个问题，因为这决定了你应该如何去设计你的研究。
+    \item \textcolor{magenta}{缺少理论框架}：理论框架决定了研究走向，因此研究的设计应当包含明确的派生假说、基本假定或者与研究问题相关且可以被检验的假设。
+    \item \textcolor{magenta}{“重要性”}：研究设计要能明确回答“那又怎样？”，要确保能够有力地表明为什么你的研究很重要，为研究该方向做出了怎样的贡献。
+    \item \textcolor{magenta}{与已有研究的联系}：不要对已有研究简单概括了事。文献综述部分应该明确阐述已有研究的结论与你的当前研究是如何联系的。例如，指出已有研究的缺陷，你的研究是如何弥补这个缺陷的。
+    \item \textcolor{magenta}{目标、假说或问题}：你的研究设计中应当包含一个或多个需要去回答的明确问题或假说，并且要和研究目标密切相关。一般1$\sim$5个问题。
+    \item \textcolor{magenta}{糟糕的方法}：需要解释清楚你打算如何收集或生成数据，如何去进行分析。确保方法与主题密切相关，并且能确实解决研究提出的问题。
+    \item \textcolor{magenta}{近邻采样}：为了获取方便或者偷懒，样本数据是与研究主题相类似却并非研究目标所关注的那个。
+    \item \textcolor{magenta}{用词}：研究通常会包含一些读者熟悉的术语，但是要避免滥用。另外流行语、陈词滥调和某种文化中特有的表达也应当避免出现在学术写作中。
+    \item \textcolor{magenta}{研究的局限}：任何研究都存在局限，你应当知道并解释清楚为什么会存在局限。这些局限对你研究结论的合法性会有什么影响，如何能够改善这种情况，都是要讲清楚的。
+\end{itemize}
+
+% 第二章
+\newpage
+
+\section{选题}
+
+“研究什么问题”提供了写作环境并决定了我们应该说什么，它是学术交流的核心主题。一般有三种选题方式：
+
+\begin{itemize}
+  \item 导师已经为你选好了话题
+  \item 导师列出一系列话题让你去选一个
+  \item 自由选题，与导师商讨同意后开始写作
+\end{itemize}
+
+~\\
+
+\lstinline{关于选题的灵感来源：}
+
+\begin{itemize}
+  \item \textcolor{magenta}{从批判中来}：看论文时你可能会不同意作者观点，那么你可以将相反的观点描述出来，思考从你的角度如何证明为什么作者观点不令人满意，并证明过程中讨论你的解决方式为什么更合适。
+  \item \textcolor{magenta}{从新点子中来}：一个研究问题往往有多种基本思路，思考你想从哪个角度考虑，如何可以捍卫你的研究角度。从你的角度延伸、修改或精炼其他人的想法是可以接受甚至值得鼓励的，但记住要引用观点来源。
+  \item \textcolor{magenta}{跨学科角度}：这个比较好理解，例如当前热门的经济学引入心理学的行为经济学；动力系统与经济学结合；从数字信号处理的角度观察经济时间序列；还有虽然没什么人知道但确实存在的生物经济学（Bioeconomics）等。
+\end{itemize}
+
+~\\
+
+由于这块内容太啰嗦，只选取了我认为重要的点，下面还有几点补充：
+
+\begin{itemize}
+  \item 善于利用论文的参考文献部分，顺藤摸瓜找出更多相关文献。一篇文章被高引用足以说明其重要性。
+  \item 用好文献管理软件，个人推荐\href{https://www.mendeley.com/?interaction_required=true}{Mendeley}+\href{https://www.voidtools.com/zh-cn/}{Everything}。
+  \item 不要追求晦涩难懂或者让人难以置信地复杂的话题来凸显你有多专业。
+\end{itemize}
+
+% 2.1节
+\subsection{如何高效看论文？}
+
+初见一篇论文的时候，对每个部分提出明确的问题，这有助于对文章有总体理解并搞清文章内容与你想要研究的问题是如何联系的。随着阅读的积累，理解文章和提出问题会变得越来越容易。这是因为你的阅读开始有了围绕某个主题的框架，阅读会变得更有针对性。下面是如何高效阅读论文的建议：
+
+% 2.1.1节
+\subsubsection{摘要}
+
+包含背景、方法、结果、讨论和结论。善于利用摘要来过滤掉看似有用但实际和你的研究主题莫得关系的信息。
+
+\begin{itemize}
+  \item 该研究与我的研究问题或研究领域有关联吗？
+  \item 该研究是做什么的，怎么做的？
+  \item 该研究的假设或潜在论点是什么？
+  \item 该研究的初步发现是什么？
+  \item 有没有一些名词或术语我可以拿过来用的？
+\end{itemize}
+
+% 2.1.2节
+\subsubsection{引言}
+
+如果摘要看完觉得文章也许有用，可以接着搞清楚作者想解决什么问题。这个信息一般位于引言的开头几段中。除了研究问题，引言还应当包含主要论点和理论框架：
+
+\begin{itemize}
+  \item 该研究想要证明或证伪什么？
+  \item 作者想要验证或论证什么？
+  \item 看论文前，关于该话题我们有多少了解，该研究对话题有什么贡献？
+  \item 为什么我要关注这个研究的内容？
+  \item 该研究是否提供了与我的方向有关的新信息？
+\end{itemize}
+
+% 2.1.3节
+\subsubsection{文献综述}
+
+阅读文献综述是为了对研究话题获得一个大致的了解，并寻找我的潜在研究适合该话题的什么领域。
+
+\begin{itemize}
+  \item 与研究话题相关的其他研究有哪些，主要的主题是什么？
+  \item 哪些是已知的，哪些是尚未被研究的？
+  \item 我的研究问题在过去最重要的发现是什么？
+  \item 已有研究是如何引导作者写出该篇论文的？
+  \item 是否有独特或者开创性的已有研究？
+  \item 是否有模型或论文设计思路是我可以拿来借鉴的？
+\end{itemize}
+
+% 2.1.4节
+\subsubsection{讨论/结论}
+
+讨论和结论往往是文章的最后两部分，它们揭示了作者是如何解释研究发现，如何基于这些发现提出政策建议的。在结论部分，作者往往会给进一步研究提出建议，这可以为我们的选题提供参考。
+
+\begin{itemize}
+  \item 研究的总体意义是什么，为什么最重要？\footnote{即回答“那又怎样（so what）”的问题。}
+  \item 解释研究结果的重要方法有哪些？
+  \item 你相信该研究的结论吗？
+  \item 该研究的局限是什么，对我们自己的研究有什么帮助？
+  \item 结论中是否包含给后续研究提出的建议？
+\end{itemize}
+
+% 2.1.5节
+\subsubsection{方法/方法论}
+
+\begin{itemize}
+  \item 该研究用的是什么类型的数据？
+  \item 该研究的分析方法是否可重复，我是否可以借鉴相同的方法？
+  \item 重复试验的数据是否足够，是否需要新数据来拓展或提升对研究话题的题解？
+\end{itemize}
+
+% 2.1.6节
+\subsubsection{结果}
+
+读完论文后要清楚该研究的主要发现有哪些，与研究话题有什么关联。
+
+\begin{itemize}
+  \item 作者发现了什么，是如何发现的？
+  \item 作者是否强调或高亮了最重要的发现？
+  \item 结果是否通过实事求是、没有偏见的方式呈现出来？
+  \item 讨论部分的结论与该部分呈现的结果是否一致？
+  \item 所有数据是否都被充分地利用了？
+  \item 你从结果中能总结出什么结论，与作者结论是否一致？
+\end{itemize}
+
+% 2.1.7节
+\subsubsection{参考文献}
+
+阅读完论文后，利用好参考文献作为额外的信息来源。并且批判性地检验这些参考问下安是如何支撑该研究的总体流程的。
+
+\begin{itemize}
+  \item 参考文献是否反映了多样化的观点？
+  \item 是否有独特或者有趣的文献可以吸纳进我自己的研究？
+  \item 该领域有哪些知名作者（如高被引）？
+  \item 有哪些文献可以帮助我理解一些遗留问题？
+\end{itemize}
+
+% 2.1.8节
+\subsubsection{阅读策略}
+
+\begin{itemize}
+  \item 关注与你的研究问题联系最密切的内容，快速略过其他部分。
+  \item 批判性阅读，阅读过程中建立自己的观点，并不是所有的东西都是完全合理的。
+  \item 标记或高亮重要的文字。
+  \item 多看多想多写。
+  \item 看完后问自己，真的看懂了吗？
+\end{itemize}
+
+% 2.2节
+\subsection{信息整理}
+
+% 2.2.1节
+\subsubsection{研究话题太宽}
+
+如果你的研究话题太宽，可能遇到诸如信息过多、信息太笼统、无法准确定义研究问题、信息无法高效归纳之类的问题。下面是一些“narrow your topic”的方法：
+
+\begin{itemize}
+  \item \textcolor{magenta}{方向}：聚焦于研究话题的一个小方向。
+  \item \textcolor{magenta}{变量}：原始变量是否可细分为方便精确分析的子变量。
+  \item \textcolor{magenta}{方法}：按研究方法进行归类。
+  \item \textcolor{magenta}{地点}：按地理单位进行归类。
+  \item \textcolor{magenta}{关系}：按关系类型进行归类\footnote{如contemporary/historical; group/individual; male/female; problem/solution之类。}。
+  \item \textcolor{magenta}{时间}：时间段越短，关注点越窄。
+  \item \textcolor{magenta}{类型}：关注特定的人、地点或现象类型。
+  \item \textcolor{magenta}{组合}：利用两个或更多上面的策略进行组合归类。
+\end{itemize}
+
+% 2.2.2节
+\subsubsection{研究话题太窄}
+
+如果你的研究话题太窄，可能遇到诸如信息不足、无法得到有效结论、观点太少无法拓展、研究问题过于个例化、研究话题受众太少等问题。下面是一些“broaden your topic”的方法：
+
+\begin{itemize}
+  \item \textcolor{magenta}{谁？}：是否有其他个人、企业或国家涉及该研究话题？
+  \item \textcolor{magenta}{什么？}：是否有与研究对象类似的东西，那些过去有现在没有，哪些现在没有将来可能有？
+  \item \textcolor{magenta}{哪里？}：是否可以将地点进行拓展？
+  \item \textcolor{magenta}{何时？}：是否可以研究的时间段拓展，从更久的过去到更远的将来？
+  \item \textcolor{magenta}{如何？}：对象间的关系是否可能有其他的方式联系？
+  \item \textcolor{magenta}{为什么？}：为什么研究的对象可以，其他对象不可以？
+\end{itemize}
+
+% 2.3节
+\subsection{时效性问题}
+
+选择当前发生的事件（如COVID-19）作为论文话题很好，但可能会碰到一些时效性问题：
+
+\begin{itemize}
+  \item 无法找到足够的学术资源，可引用的文献不足，导致研究不够严谨有效。
+  \item 支撑你的研究的参考文献更多是关于历史事件的，导致你写着写着写歪了。
+  \item 当前发生的事件往往都没有结束，你的研究结论和建议与事件的结果可能偏差较大。
+  \item 对当前事件的研究是动态的，这会导致一些预料之外的情况，甚至可能新的话题会取代当前事件的话题。
+\end{itemize}
+
+\lstinline{对于上述问题，解决方式如下：}
+
+\begin{itemize}
+  \item 寻找相关文献，做对比分析\footnote{能源经济领域有很多outlook类报告。}。
+  \item 寻找领域内学术大佬的观点，与他们保持一致。
+  \item 寻找国会听证会或政府机构报告，与他们保持一致。
+\end{itemize}
+
+% 第三章
+\newpage
+
+\section{写作前准备工作}
+
+在选题完成开始写作前，别急，在这之前要做日程表：
+
+\begin{itemize}
+  \item 做好日程表，标注最后期限\footnote{不然经常会拖延症拖到没救。}。
+  \item 选择重要节点的日期，要实事求是。做好后就要严格遵守。
+\end{itemize}
+
+\lstinline{一些写作需要注意的事项：}
+
+\begin{itemize}
+  \item “a”、“the”、“an”的区别要清楚。
+  \item 段落要缩进。
+  \item 一段占了一页就太长了，要合理分段。
+  \item 尽可能用主动语态，但有些教授喜欢被动语态\footnote{这个不一定，具体问导师。}。
+  \item 缩写词第一次出现的时候要写全称。不要滥用缩写词。
+  \item 连词\footnote{and、but、or}或数词不要出现在句首。
+  \item 时刻紧贴研究目标，不要写着写着偏题了。
+  \item 每个重要的点要用分段来区分。
+  \item 陈述观点要按逻辑顺序。
+  \item 广泛接受的事实用现在时态\footnote{如“The Prime Minister of Bulgaria is Boyko Borissov.”}。
+  \item 用过去时态描述研究结果\footnote{如“Evidence shows that the impact of the invasion was magnified by events in 1989.”}。
+  \item 避免没必要的非文本要素\footnote{images/figures/charts/tables}，只用那些必要的，能方便理解结果的图表。
+\end{itemize}
+
+% 3.1节
+\subsection{题目怎么写？}
+
+好的标题应该用尽可能少的必要单词来充分描述论文的内容和/或目的。标题是论文中读得最多，并且也是读的第一个部分。起标题的一些常见误区如下：
+
+\begin{itemize}
+  \item \textcolor{magenta}{标题太长意味着没用的单词太多}。避免诸如“A Study to Investigate the...”或“An Examination of the....”之类的表述。
+  \item \textcolor{magenta}{标题太短意味着用词太宽泛，无法提供足够的有效信息}。例如“African Politic”太模糊，可以代表任何关于非洲政治的话题。
+  \item 学术写作是严肃的，标题中药\textcolor{magenta}{避免使用诙谐幽默或新闻用语}的词汇。如“incredible”、“amazing”、“effortless”等词。
+\end{itemize}
+
+\lstinline{下面四个因素有助于指定一个合适的论文标题：}
+
+\begin{itemize}
+  \item 研究的目的
+  \item 研究的范围
+  \item 研究的基调
+  \item 使用的方法
+\end{itemize}
+
+通常来说，最终的标题（final title）应该是在整个研究完成后写的，这个标题能够准确把握研究做了什么。但是工作标题（working title）应该是在研究早期就写好，这有助于研究关注点紧贴研究问题和目标，避免偏题。如果感觉自己写偏了，回头多看看标题。
+
+% 3.1.1节
+\subsubsection{标题}
+
+\lstinline{好的标题应该包含以下特征：}
+
+\begin{itemize}
+  \item 准确指出研究主题和范围
+  \item 避免使用缩写词
+  \item 能激发读者兴趣
+  \item 能够识别出关键变量
+  \item 提出变量间的关系
+  \item 5$\sim$15词内
+  \item 不要出现“A Study of”或“An Analysis of”之类的表述
+  \item 疑问句或陈述句
+  \item 如果要在标题中引用，放在脚注中
+  \item 正确使用大小写
+  \item 别用感叹号
+\end{itemize}
+
+% 3.1.2节
+\subsubsection{副标题}
+
+\begin{itemize}
+  \item 解释或提供额外的上下文信息
+  \item 限定研究的地理范围
+  \item 限定研究的时间范围
+  \item 专注于某个想法、理论或案例
+  \item 确定所使用的方法
+\end{itemize}
+
+% 3.2节
+\subsection{提纲}
+
+学术论文是精致且复杂的，有时甚至需要创造性方法来组织你的想法。写提纲能让你决定各种观点是如何互相连接的，按什么顺序陈述观点最好，研究的局限在哪，是否有足够的证据来支撑观点。\lstinline{一个好的提纲意义在于：}
+
+\begin{itemize}
+  \item 能减少写作障碍
+  \item 确保文章前后一致
+  \item 一直有一个写作的校准标准
+  \item 提纲是让你保持写作动力的关键
+  \item 有利于组织对一个话题的多个想法
+\end{itemize}
+
+\textcolor{magenta}{没有条理的提纲=没有条理的论文}
+
+% 3.3节
+\subsection{如何组织段落？}
+
+一个段落是支持一个主要观点的句子的集合，是文章的一个个楼层。段落一般由三部分组成：\lstinline{主题句、主体句、总结或承接句}。
+
+\lstinline{段落组织的一些常见问题：}
+
+\begin{itemize}
+  \item 没有中心思想
+  \item 中心思想太多
+  \item 段落中需要过渡\footnote{就是太长需要分段。}
+\end{itemize}
+
+主题句是段落的第一个部分，需要阐述一个中心思想，给出背景信息或者提供一个转换。其后是主体句，应当包括对中心思想的讨论，包括事实、观点、分析、案例或者其他信息。最后是总结句，长段落的总结句还需要包含承接下一段的承接句。
+
+\textcolor{cyan}{上述段落组织并不是说你在写作的时候不能有创新，但是不要过于“创新”，这可能会使你偏离主要论点，降低学术写作的质量。}
+
+\lstinline{一个好的段落应当满足以下四点：}
+
+\begin{itemize}
+  \item \textcolor{magenta}{统一}：段内所有句子应该围绕一个中心思想。
+  \item \textcolor{magenta}{主题相关}：不能偏离文章的大方向。
+  \item \textcolor{magenta}{连贯}：句子顺序应该有逻辑。
+  \item \textcolor{magenta}{完善}：段落中心思想能够被充分揭示和支撑，没有细节问题。
+\end{itemize}
+
+% 第四章
+\newpage
+
+\section{摘要}
+
+摘要通常一段300字以下，按规定顺序归纳文章主要部分：
+
+\begin{itemize}
+  \item 为什么研究，研究什么
+  \item 研究的基本设计
+  \item 主要发现是什么
+  \item 对结果的简要解释与总结
+\end{itemize}
+
+% 4.1节
+\subsection{为什么好的摘要很重要？}
+
+摘要是对文章主要部分的精炼，让读者决定要不要读下去。因此，摘要必须包含足够的关键信息，来使其对读者“有用”。
+摘要写到什么程度才叫“包含足够信息”？一个简单的经验法则，把自己想象成做相同工作的另一个的研究者，问自己：如果只看摘要，其信息量是否让你满意？是否把研究完整展现了出来？如果没做到，那么摘要再改改。
+
+% 4.2节
+\subsection{摘要的类型}
+
+\begin{itemize}
+  \item \textcolor{magenta}{评论型摘要}:除了描述主要发现外，还需要加上对文章有效性、可靠性、完成度的判断或评价。研究者通常会通过与同主题下其他的工作比较来做出评价。由于加上了额外的评论部分，这类摘要一般是400-500字。\lstinline{（不常用）}
+  \item \textcolor{magenta}{描述型摘要}:这类摘要描述研究发现结果的类型，无需做判断，也不提供研究的结果或结论。它可能包含文章的关键词，目的、方法、研究范围。简单来说，这类摘要只描述工作总结，或者是研究框架，通常很短，100字以内。\lstinline{（不常用）}
+  \item \textcolor{magenta}{信息型摘要}：大多数摘要都是这类。信息型摘要不仅仅要描述，而应当是作为正文本身的一种替代，应当展现和解释所有的主要观点和重要的结果。这类摘要除了目的、方法、研究范围外，还要加上结果、总结、建议，通常不超过300字。
+\end{itemize}
+
+% 4.3节
+\subsection{写法}
+
+尽可能用主动语态，不过很多地方也是需要用被动句的。摘要的每句话都应该简洁但完整。尽快引出要点，直截了当。用过去式，因为你在报告一个已经完成的研究。
+
+虽然摘要是文章的第一个部分，但应当最后再写，因为摘要需要对整个文章做总结。摘要构成的一个好方法是，从文章各部分选取一段关键句或短语，用合适的顺序排列，再增补连接词来让叙述更加清晰和流畅。
+
+确保摘要里的信息与你在正文里写的一致。摘要其实可以视为描述最重要信息的整句的有序集合，其中的整句应当用最少的必要词组成。
+
+\lstinline{摘要中不应当出现：}
+
+\begin{itemize}
+  \item 冗长的背景
+  \item 多余的短语，不必要的动词和形容词，重复信息
+  \item 首字母缩略词或缩写
+  \item 参考其他文献\footnote{如"current research shows that..." 或"studies have indicated..."}
+  \item 省略号或不完整的句子
+  \item 难以理解的专业术语
+  \item 引用其他文献
+  \item 图表
+\end{itemize}
+
+\textcolor{red}{千万不要只看摘要就引用}：只引用摘要并不意味着你对该论文有透彻且可靠的理解。
+
+% 第五章
+\newpage
+
+\section{引言}
+
+\lstinline{什么是引言？}引言就是把读者从笼统的主题领域引入到研究的特定话题。引言需要回答读者的四个问题：
+
+\begin{itemize}
+  \item 研究的是什么？
+  \item 为什么值得研究？
+  \item 开始研究前，我们对该话题有哪些了解？
+  \item 文章创新点是什么？
+\end{itemize}
+
+一个好的引言之所以重要，是因为没有第二次机会来创造好的第一印象。写作过程中要经常回顾引言，必要的话可以修改引言，以保持前后一致。另外引言中容易被忽略的一点是，要说清楚研究的边界在哪里，因为你必须向读者说明为什么拒绝其他类似的方法。
+
+\textcolor{red}{要避免“字典”型引言}：把与研究话题相关的词汇用字典上的定义写出来看似合适，但没必要，因为读者完全可以自己去查字典。“字典”式的解释并不合适，因为字典并没有考虑到研究话题的上下文关系，没法给出特定的细节信息。在不同语境下一个词往往有不同的含义。
+
+引言的最后一段应当预告你的主要论点和结论，并简要描述后文的框架，作为一种“路标”指引读者。
+
+% 5.1节
+\subsection{如何写引言？}
+
+这里介绍了一个The Creating a Research Space（CARS）模型，其实就是手把手教你如何写引言。这里不翻译废话，直接开始。
+
+\textcolor{magenta}{第一步\quad 建立边界:}
+
+\begin{itemize}
+  \item \lstinline{步骤一：}解释该话题为什么值得研究。
+  \item \lstinline{步骤二：}概括该话题的基本情况。
+  \item \lstinline{步骤三：}回顾已有文献，说明有必要进一步研究。\textcolor{red}{这不是文献综述}，但需要反映出该问题并未完全解决。
+\end{itemize}
+
+\textcolor{magenta}{第二步\quad 建立一个壁龛（提出问题）:}
+
+\begin{itemize}
+  \item \lstinline{方法一：}引入一个相反观点，或者指出已有研究存在的不足。
+  \item \lstinline{方法二：}针对研究领域的空白，提出本文的研究问题。
+  \item \lstinline{方法三：}在已有研究的基础上进行观点的拓展。
+\end{itemize}
+
+\textcolor{magenta}{第三步\quad 填充壁龛（解决问题）:}
+
+\begin{itemize}
+  \item \lstinline{步骤一：}清晰地解释你的研究目的。
+  \item \lstinline{步骤二：}对主要方法或发现做简要总结。
+  \item \lstinline{步骤三：}展示文章剩下部分的结构。
+\end{itemize}
+
+% 5.2节
+\subsection{背景信息}
+
+背景信息是用来拓展引言开头的关键点，不应当是文章的主要关注点。背景信息通常能回答“我对该话题了解多少？”，并且能够帮助读者对研究有基础的理解。能够让读者在文献综述部分之前就对问题有基本的了解。\lstinline{背景信息一般包含以下信息：}
+
+\begin{itemize}
+  \item 文化环境
+  \item 经济关系
+  \item 性别差异
+  \item 历史表现
+  \item 跨学科理论
+  \item 问题的本质
+  \item 关系网
+  \item 政治环境
+  \item 社会环境
+  \item 时间关系
+\end{itemize}
+
+\textcolor{magenta}{背景信息中不应当包含过于具体、冗长的介绍}，这些应该放到后面文献综述部分说。换句话说，文献综述如果是正餐的话，背景信息只是餐前的开胃小菜。
+
+% 5.3节
+\subsection{理论框架}
+
+\lstinline{一个好的理论框架是怎样的？}
+
+\begin{itemize}
+  \item 一个明确理论假设能够让读者批判性地评价。
+  \item 将研究者与现有知识体系联系起来，得到研究方法和假设。
+  \item 将一个研究的理论说清楚能迫使你回答“为什么”和“怎么做”的问题。
+  \item 理论框架能让你理解方法的边界在哪里。
+\end{itemize}
+
+\lstinline{如何构建理论框架？}
+
+\begin{itemize}
+  \item 回顾论文题目和研究目的。研究目的锚定了你的整个研究，并且是构建理论框架的基础。
+  \item 仔细思考哪些变量在研究中是关键变量。
+  \item 查阅相关文献，看看别人是如何解决问题的。
+  \item 列出与你研究话题相关的结构和变量，并分为自变量和因变量两类。
+  \item 分析该理论的假设和命题，指出它们和你的研究的相关性。
+\end{itemize}
+
+\lstinline{构建理论框架时的注意点：}
+
+\begin{itemize}
+  \item 对理论框架的描述要清晰。
+  \item 要在更宽泛的理论背景下定位你的理论框架\footnote{和其他理论相比，为什么你的理论框架更合适？}。
+  \item 描述理论内容时，用现在时态。
+  \item 理论假设要尽可能清晰。
+  \item 不要把理论的内容当作是绝对正确的\footnote{All models are wrong, but some are useful.——George Box}。
+\end{itemize}
+
+\textcolor{red}{不要把理论挂在引言部分，后面再也不提。}理论不足会让你的论文显得不可信，因为你建立的理论框架应当贯穿全文引导你的研究。文献综述和结果讨论部分要与理论框架结合，阐述理论框架是怎样支撑起两部分对问题的分析。
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=Theory和Hypothesis的区别]
+  理论（theory）是为解释自然世界某些方面而建立起来的公认的原则。理论来源于反复观察和检验，被人们广泛接受。
+  \tcblower
+  假设（hypothesis）是具体的、可以被检验的预测。在你的研究中，你期望假设会发生。
+  \end{tcolorbox}
+
+% 第六章
+\newpage
+
+\section{文献综述}
+
+文献综述的作用是提供你在研究时用到的学术资源概述，并且向读者展示你的研究是如何适配在更大的研究领域里的\footnote{我感觉就类似拼图，已有研究是一块块零散的碎片，你用文献综述把这些碎片组合起来并据此找出你自己研究的位置在哪，从而拼凑出一张完整的图案。}。
+
+% 6.1节
+\subsection{写文献综述，是为了什么？}
+
+\begin{itemize}
+  \item 将每项研究放在研究话题的大背景中，探讨其贡献。
+  \item 描述不同研究之间的联系。
+  \item 找出能够解释已有研究的新路子。
+  \item 解释文献中存在的研究空白。
+  \item 了解已有研究的概况，防止重复工作。
+  \item 为满足进一步研究的需要指明道路。
+  \item 在已有文献的背景下找到自己的研究位置\textcolor{red}{(重要)}。
+\end{itemize}
+
+% 6.2节
+\subsection{文献综述的结构}
+
+\begin{itemize}
+  \item 对研究话题、研究问题和理论的概括。
+  \item 将已有文献进行分类。
+  \item 解释不同研究之间的异同。
+  \item 在已有文献的论点中，哪些是最具有说服力的？它们的贡献是什么？
+\end{itemize}
+
+% 6.3节
+\subsection{写文献综述的原则}
+
+\begin{itemize}
+  \item 你的观点必须要有文献支撑。
+  \item 总结文献要有选择性，凸出文献中最重要的点。
+  \item 少用引用。引用要简短，不要用大量的引用代替你自己对问题的理解。
+  \item 学会精炼。
+  \item 用文献综述陈述其他研究者观点的同时，你要有自己的观点。
+  \item 转述时一定要谨慎，不要曲解他人意思。
+\end{itemize}
+
+% 6.4节
+\subsection{文献综述的常见错误}
+
+\begin{itemize}
+  \item 文献综述中的文献与研究问题无关。
+  \item 完全依赖二手分析，忽略了原文献。
+  \item 不加批判地完全接受他人观点。
+\end{itemize}
+
+% 第七章
+\newpage
+
+\section{方法论}
+
+方法部分描述研究的基本原理，从而允许读者评判性地评估研究的整体有效性和可靠性。该部分主要回答两个问题：一、数据是如何收集或生成的；二、分析是如何进行的。
+
+% 7.1节
+\subsection{为什么好的方法论部分很重要？}
+
+\begin{itemize}
+  \item 读者需要知道数据是如何获取的，因为不同的选择方法对结果有影响。
+  \item 不可靠的方法会导致不可靠的结果，从而削弱研究结果的分析价值。
+  \item 通常有很多方法可以选择，你需要说明为什么选择该方法。
+  \item 方法必须要适合研究目标的实现，例如样本量足够大等。
+  \item 需要讨论可能会出现什么问题，如何最小化其危害。
+  \item 提供足够信息让其他研究者能采用你的方法，尤其是你在方法论上有创新的时候。
+\end{itemize}
+
+% 7.2节
+\subsection{好的方法论部分是什么样的？}
+
+\begin{itemize}
+  \item 能够明确阐述研究方法
+  \item 说明该方法是如何与整体研究设计相适配的\footnote{论文中常见的一个问题就是所用方法其实不适合解决研究问题}。
+  \item 详细说明数据收集或生成方法\footnote{个人经验的话，较好的论文在这点上做得都比较到位。}。
+  \item 解释你打算如何分析研究结果。
+  \item 为读者不熟悉的方法提供背景和基本原理。
+  \item 如果是案例研究，说明选择该案例的理由。
+  \item 描述可能的局限性。
+\end{itemize}
+
+% 7.3节
+\subsection{需要避免的问题}
+
+\begin{itemize}
+  \item \textcolor{magenta}{不相关的细节}：方法论部分应该全面但简洁，不要提供任何无助于读者理解你的研究的方法\footnote{分析不是解释，解释结果留到结果讨论部分。}。
+  \item \textcolor{magenta}{对基础流程不必要的解释}：你不是在编写方法使用的指南，过分详细的步骤解释没有必要。你应当关注于如何去应用这个方法。
+  \item \textcolor{magenta}{无视存在的问题}：在收集或生成数据和清洗数据的时候几乎一定会出现问题。不要回避这些问题，记录你如何克服这些障碍也是方法论中重要的一环。
+  \item \textcolor{magenta}{没有文献支撑}：类似文献综述部分提供了你研究该话题时的文献来源，方法论部分也要有支撑你方法选择的文献来源。
+\end{itemize}
+
+% 7.4节
+\subsection{定量分析}
+
+% 7.4.1节
+\subsubsection{定量分析的注意点}
+
+\begin{itemize}
+  \item \textcolor{magenta}{解释数据}：数据、统计方法与其他相关结果都要解释。但注意\textcolor{red}{对结果的解释不应当出现在该部分}。
+  \item \textcolor{magenta}{预料之外的情况}：不要隐瞒收集和分析数据过程中出现的突发情况，需要解释为什么实际分析与计划中的分析有出入。还要解释对缺失数据的处理和为什么缺失数据不影响你的研究的合法性。
+  \item \textcolor{magenta}{数据清理}：对于数据集的清理过程也需要解释清楚\footnote{个人观点：数据清理本身就是一门学问，繁琐而复杂且无法绕开。把数据清理过程解释清楚本身能让读者对你的研究更信服，认为你的数据并不是随便找找甚至是选择性收集的。}。
+  \item \textcolor{magenta}{统计推断}：给出每个变量的描述性统计、置信区间、样本容量，以及检验统计量的值、自由度和显著性水平（真实的p值要给出）。
+  \item \textcolor{magenta}{解释图表}：要让读者知道从图表中能得出什么信息，一定要进行说明和解释。
+\end{itemize}
+
+% 7.4.2节
+\subsubsection{定量分析的简要框架}
+
+\begin{itemize}
+  \item \textcolor{magenta}{引言}：确定研究问题$\rightarrow$文献简要回顾$\rightarrow$描述理论框架
+  \item \textcolor{magenta}{方法论}：抽样$\rightarrow$数据收集$\rightarrow$分析数据\lstinline{（不是结果分析）}
+  \item \textcolor{magenta}{结果}：统计分析，罗列重要发现。\lstinline{（该部分也不进行结果分析）}
+  \item \textcolor{magenta}{讨论}：解释结果$\rightarrow$描述趋势、组间对比、变量间关系$\rightarrow$对结果进行讨论$\rightarrow$本文的局限性
+  \item \textcolor{magenta}{结论}：重要发现的总结$\rightarrow$建议$\rightarrow$后续研究
+\end{itemize}
+
+% 7.4.3节
+\subsubsection{对定量分析方法的思考}
+
+\begin{itemize}
+  \item 研究者提出的问题可能会引起“结构性偏见”或者虚假陈述。因为数据实际上反隐了研究者的观点，而不是事件对象的观点。
+  \item 定量分析的结果对行为、态度或者动机的描述较少\footnote{这种可以尝试了解行为经济学那边的思想，我也不懂。}。
+  \item 收集数据看似简单，但实际上很容易出问题，像采样有偏见、数据太过表面、样本量不够等。
+  \item 定量分析的结果其意义是有限的，因为其提供的是数字描述而不是详细的文字叙述\footnote{其实这个我不觉得是什么缺点。}，也很少会考虑到人类的感知。
+  \item 研究通常在非自然的、人工的环境下进行，可控但在现实中难以实现\footnote{在经济学中体现为方法的前提假设太强了，不过还是那句话，\textcolor{red}{All models are wrong, but some are useful. }这句我很喜欢。}。
+  \item 预设的答案并不一定能反映人们的真实感受，只是最接近事先假设的那个。
+\end{itemize}
+
+% 第八章
+\newpage
+
+\section{结果（Results）\footnote{注意结果、讨论、结论三个部分并不是一定要完全分开。个人阅读经验的话，这三个部分一般组合成Empirical results+Conclusion（+Policy implications，有时会和Conclusion部分合并。）的情况较多。}}
+
+结果部分是你按逻辑顺序陈列结果的地方，\textcolor{red}{不要带有偏见或者解释}，因为很重要所以说三遍。
+
+研究的结果并不能证明任何东西，研究结果只能接受或拒绝研究的假设。将结果清晰地表达出来能够帮你从内部理解问题，将其分解并从不同的角度看待问题。一般来说，没有总结的原始数据不应当出现在你的正文中。并且避免提供对研究问题没有帮助的数据，结果呈现要简洁。
+
+% 8.1节
+\subsection{结果部分应该包括}
+
+\begin{itemize}
+  \item 通过重述支撑你的研究的研究问题来提供理解研究结果的引导性背景，这有助于将读者的注意力重新聚焦到研究问题上。
+  \item 适当加入图表等非文字内容来便于对结果的理解\footnote{如果非文字内容太多，可以考虑用附录。}。
+  \item 重点放在呈现那些与研究问题相关的重要发现上。这并不是说让你忽略那些与话题联系不紧密的发现，因为这些发现可以用在后续研究中用得上。但描述这些无关的发现会让你的结果部分显得很混乱。
+  \item 一个小段，通过综合研究的主要发现来对结论部分做个总结。
+\end{itemize}
+
+\lstinline{注意：}用过去时态描述你的结果，因为这些调查已经发生了。
+
+% 8.2节
+\subsection{需要避免的问题}
+
+\begin{itemize}
+  \item \textcolor{magenta}{讨论或解释你的结果}：但适当情况下可以和其他研究的结果进行比较。
+  \item \textcolor{magenta}{介绍背景信息}：这个应当在引言部分完成，如果你觉得背景信息不够，去修改引言。
+  \item \textcolor{magenta}{忽略不好的结果}：不要选择性地忽略不好的结果，应当实事求是。你可以将它们变废为宝，去解释其发生原因并如何处理，这反而是让你的结果更加吸引人的机会，要把握好。
+  \item \textcolor{magenta}{包含原始数据或中间计算}：如果一定要，放到附录中。
+  \item \textcolor{magenta}{语言模糊不清}：如实汇报且简明扼要，不要用模糊或者不明确的词语\footnote{如“appeared to be greater than other variables...”或“demonstrates promising trends that....”等。}。
+  \item \textcolor{magenta}{重复相同的数据或信息}：\sout{人类的本质是复读机} \quad 如果觉得一个发现很重要，在讨论部分有机会强调，结果部分就不要重复描述一个发现了。
+\end{itemize}
+
+% 8.3节
+\subsection{为什么要把结果和结论部分分开？}
+
+社科论文中把结果和讨论合在一起的情况并不少见，但如果你并不是一个有经验的写作者，还是老老实实分成两部分。这有利于更好地组织你的思路乃至整个论文。把\lstinline{结果}部分看作你汇报研究发现的地方；把\lstinline{讨论}部分看作你解释数据和回答“那又怎样（so what？）”的地方。
+
+% 8.4节
+\subsection{非文本内容}
+
+Non-Textual Elements，简单来说就是图表之类。和中文不同，英文论文中对这类分得很细，例如\footnote{个人阅读经验是，Figure和Table两类最常见，等同于中文论文中的“图”和“表”。}：
+
+\begin{itemize}
+  \item Chart
+  \item Diagram
+  \item Drawing
+  \item Figure（如“Fig. 1”）
+  \item Flowchart（流程图）
+  \item Form
+  \item Graph
+  \item Histogram
+  \item Illustration
+  \item Map
+  \item Pictograph
+  \item Symbol
+  \item Table（如“Table 1”）
+\end{itemize}
+
+由于本人翻译水平有限，没法用中文将这些很好地区分开，加上实际写作用只会用到其中的两三种，因此这块就不翻译了。有兴趣可以自己去翻看一下原文，链接在\href{https://libguides.usc.edu/writingguide/nontextual}{此处}。
+
+% 第九章
+\section{讨论（Discussion）}
+
+讨论部分是用来解释研究发现的重要性和阐述你对研究发现的新理解的地方。该部分通过你提出的研究问题、假设或回顾的文献与引言部分相连接，但并不是引言部分的简单重述。讨论部分能够让读者提升对研究问题的理解，此时的读者还停留在文献综述部分。
+
+% 9.1节
+\subsection{好的讨论部分为什么重要？}
+
+\begin{itemize}
+  \item 能够有效展示你作为研究者的能力。批判地思考问题；通过对研究发现的逻辑综合得到创造性的解决方案；对研究问题有更深刻的理解。
+  \item 陈述研究的潜在意义，指出对该研究领域的贡献，并探索进一步的改进空间。
+  \item 说明你的研究发现是如何揭露并填补已有研究的空白。
+  \item 让读者通过对实证发现的解释来对研究问题进行批判性思考。
+\end{itemize}
+
+% 9.2节
+\subsection{讨论部分的结构和写作}
+
+% 9.2.1节
+\subsubsection{讨论部分的写作原则}
+
+\begin{itemize}
+  \item 不要啰嗦与重复。
+  \item 简明扼要，把观点讲清楚。
+  \item 避免用行话或者未定义的科技语言。
+  \item 按逻辑顺序阐述观点，与结果部分的顺序应当一致。
+  \item 用现在时，尤其是那些已经建立的事实。可以用过去时指代以前的研究。
+\end{itemize}
+
+% 9.2.2节
+\subsubsection{讨论部分需要包含什么？}
+
+\begin{itemize}
+  \item \textcolor{magenta}{对结果的解释}：每个发现是否符合预期？深入解释意料之外或者意义深刻的发现。
+  \item \textcolor{magenta}{与已有研究对照}：将研究结果与已有研究的结果做比较，或者使用这些结果来支持你的主张。
+  \item \textcolor{magenta}{推论}：说明研究结果如何能更广泛地应用。比如获得了什么经验，提出改进意见等。
+  \item \textcolor{magenta}{假设}：由研究结果衍生出更具一般性的主张或可能的结论（在后续研究中能够被证明或推翻），可以成为新的研究问题。
+\end{itemize}
+
+% 9.2.3节
+\subsubsection{如何写讨论部分？}
+
+\begin{itemize}
+  \item 重申研究问题并陈述主要发现。
+  \item 解释研究发现的意义以及为什么重要。
+  \item 将这些发现与类似研究结合起来。
+  \item 思考对这些发现有没有其他解释。
+  \item 指出研究的局限性。
+  \item 为进一步研究提出建议。
+\end{itemize}
+
+% 9.2.4节
+\subsubsection{需要避免的问题}
+
+\begin{itemize}
+  \item 不要浪费时间重述结果。这个是在结果部分该做的事。
+  \item 对进一步研究的建议可以放在讨论或结论部分，但不要重复出现。
+  \item 不要在讨论部分引入新的结果。要小心结果$\neq$讨论，这会误导读者。
+  \item 一般可以接受使用第一人称，但用太多会分散读者的注意。
+\end{itemize}
+
+% 9.3节
+\subsection{其他的实用建议}
+
+\textcolor{magenta}{不要过度解读结果}：解释是主观的，你在选择和解释研究发现的时候要时刻谨慎，反省是否会产生无意识的判断偏见。牢记，你的研究发现不应当超出研究证据所能支持的范围，“data are the data: nothing more, nothing less”。
+
+\textcolor{magenta}{不要写两个结果部分}：一个很常见的错误就是，对结果的解释过于肤浅，导致或多或少地重复了结果部分的内容\footnote{别骂了，别骂了。}。讨论结果的时候确实需要参考结果，但要专注于对结果的解释以及其对解决研究问题的重要性，而不是专注于数据本身。
+
+\textcolor{magenta}{避免无根据的推测}：讨论部分应该把焦点放在研究结果之上。没有从研究结果出发的主张并不是原始设计的一部分。如果你认为必须要进行推测，就需要清楚地描述或者解释可能的影响。以推测的方式拓展你的结果的讨论是值得鼓励的，但不应当在学术论文中体现出来。因为学术论文的受众并不关心你的观点，论文中每一个论点都需要有支撑。
+
+% 9.4节
+\subsection{研究的局限}
+
+你能够自己发现并承认研究的局限比被导师指出好得多\footnote{人贵有自知之明}。承认研究存在局限并不完全是坏事，倒不如说往往是好机会。研究局限既可以让你为进一步研究提供灵感，也能让读者觉得你是进行了批判性思考的。\textcolor{red}{做研究的关键目的并不仅仅是发现新的知识，也需要直面问题，探索我们尚未发现的东西}。
+
+不要只列出研究的局限，因为读者不知道这些局限对研究结果和结论会产生什么样的影响。对研究局限的描述应当是批判性的，你需要回答研究局限造成的问题影响哪些方面，影响是否重要。另外注意对研究局限的描述应当是过去时，因为它们是在研究完成后才被发现的。记住，方法的选择可能是研究局限存在的最可能原因。
+
+% 9.4.1节
+\subsubsection{可能存在的局限类型}
+
+\begin{itemize}
+  \item 样本容量太小\footnote{虽然中心极限定理告诉我们样本容量>30时可以用正态分布近似，但实际上从我的阅读经验来看，论文中样本容量，如果是月度数据一般都是300-500，日数据甚至会上几千。而从我的实践来看，100左右的样本容量画不出什么好看的图像，可解读出的信息太少了。}
+  \item 数据不可靠
+  \item 缺乏对话题的前期研究
+  \item 采样方式限制了对结果的分析
+  \item 调查问卷类数据可信度不足
+\end{itemize}
+
+% 9.4.2节
+\subsubsection{如何去描述研究局限？}
+
+\begin{itemize}
+  \item 详细但简明地描述每个研究局限。
+  \item 解释局限为什么存在。
+  \item 解释为什么无法克服局限。
+  \item 评估局限对整体研究的影响。
+  \item 如果需要，说明这些局限如何引出后续研究。
+\end{itemize}
+
+% 9.4.3节
+\subsubsection{其他的实用建议}
+
+\textcolor{magenta}{不要夸大研究结果的重要性}：在完成一篇艰苦并且耗时很长的论文后，你很容易忘乎所以地把自己所做的工作看得很重要。每个人都希望自己的研究成果是优秀的，能被别人承认，但理解并承认你的研究局限也很重要。夸大研究结果的重要性可能被读者视为试图掩盖研究存在的缺陷或者是对结果的偏见解释。稍微谦逊些走得更远。
+
+\textcolor{magenta}{负面结果不一定是坏事}：负面结果指那些意料之外地与研究假说冲突而不是支持假说的那些结论。如果结果不是你预期的，这可能意味着你的假说错误或者需要被修改。但也许你可能发现了一些意想不到的东西，值得去进一步研究。有些负面的结论虽然不支持你的研究假说，但对其他人的研究可能很有帮助。因此不要陷入“非自己预期的结果都是不好的”这样的思维陷阱。如果你的研究真的做得很好，那么这些负面结果只是你研究中的额外结果，只需要额外的解释即可。
+
+% 第十章
+\newpage
+
+\section{结论（Conclusion）}
+
+结论部分是为了在读者阅读完论文后，帮助他们理解为什么你的研究对他们来说很重要。结论不仅仅是对研究涉及到的各种主题的总结或者对研究问题的重述，而是对关键点的综合，重述你的主要论点。如果有必要，可以为后续研究指明道路。对于大多数的college-level\footnote{不清楚应该怎么翻译合适，应该指的是“大学水平”。}的论文来说，一到两段结构良好的段落对结论部分来说足以，有时需要三段\footnote{个人文献阅读经验，其实一般4-5段较多，不过那些是好期刊了，文章篇幅也较长。}。
+
+% 10.1节
+\subsection{好的结论部分为什么重要？}
+
+\begin{itemize}
+  \item \textcolor{magenta}{对研究问题做最后的回答}：引言部分给读者留下第一印象，而结论部分是要让读者留下持久的印象。例如，突出关键性的发现或如何去应用到实践中。
+  \item \textcolor{magenta}{总结你的想法}：把你的研究放在整个研究话题的大背景下，简洁回答“那又怎样（so what?）”的问题。
+  \item \textcolor{magenta}{解释已有研究的空白是如何填补的}：与文献综述部分相呼应。
+  \item \textcolor{magenta}{展示研究意义}
+  \item \textcolor{magenta}{引导后续研究}：介绍该研究问题可能的新/拓展性的后续方向。这并不是说要引入新的信息\lstinline{（避免发生这种情况）}，而是在你的研究发现基础上提供新的看法。
+\end{itemize}
+
+% 10.2节
+\subsection{结论部分的结构和写作}
+
+% 10.2.1节
+\subsubsection{结论部分的写作原则}
+
+\begin{itemize}
+  \item 清晰简洁地陈述你的结论。重述研究目的并说明你的发现为什么与其他研究相同或不同，其原因是什么？
+  \item 不要简单地重述结果和对结果的讨论。这不是该部分要做的事，你应当将观点综合起来，说明是如何达成研究的总体目标的。
+  \item 如果在讨论部分没有对后续研究做展望，可以在这部分写。最好强调后续研究还需要什么，以向读者显示你对研究问题是有过深入思考的。
+  \item 如果你的论点太复杂，需要对其做总结和概述后再呈现给读者。
+  \item 将思考方向从局部细节转移到总体概览上，将主题带回到引言提供的背景环境中去。
+\end{itemize}
+
+\textcolor{red}{注意}：如果被要求自己好好检查下结论，是让你作为一个写作者去反省自己，尝试去更深入地理解问题，而不是让你胡乱猜测可能的结果或者编造没有证据的结论。
+
+% 10.2.2节
+\subsubsection{需要避免的问题}
+
+\begin{itemize}
+  \item \textcolor{magenta}{不够简洁}：结论应当简明扼要直切主题，冗长的结论必然包含多余的信息。结论不是展示你的方法或结果细节的地方。
+  \item \textcolor{magenta}{没有回答关键性的问题}：引言部分是从一般到具体，而结论部分是从具体到一般。结论部分应当把研究放在一个更大的背景下，广泛回顾文献，对问题做具体分析和讨论，从而总结出关键性的结论。
+  \item \textcolor{magenta}{未能展示负面结果}：这个在上一章中详细说过，这里不再展开。
+  \item \textcolor{magenta}{未能把结论总结清楚}：需要总结什么？总结新的知识和对研究问题的新理解。
+  \item \textcolor{magenta}{结论与研究目标不相关}：在研究的过程中，研究目标发生变化并不少见。但问题在于目标的变化要记录下来，并相应地修改引言。结论与引言要想匹配，不能出现错位。
+  \item \textcolor{magenta}{不要事后怀疑自己}：写作的时候你会沉浸其中，你懂的东西很多。一旦写作完成，你回顾自己论文的时候可能对写的东西产生怀疑。你需要抑制住这种怀疑，不要去想“这只是一种方法，可能还有其他更好的方法”之类。结尾的整体基调应该是向读者传递一种自信。
+  \item \textcolor{magenta}{不要对显而易见的东西喋喋不休}：避免使用“in conclusion...”、“in summary...”或“in closing...”之类的表达。
+  \item \textcolor{magenta}{新见解，不是新信息}：不要在结论部分引入其他部分从未出现过的新信息来惊吓你的读者。如果有新信息，加到讨论或者其他合适的部分。
+\end{itemize}
+
+% 10.3节
+\subsection{附录}
+
+我个人认为大部分的硕士论文不会复杂到需要用附录的程度（当然也可能是我比较菜），所以这块就不翻译了。有需要可以自取，\href{https://libguides.usc.edu/writingguide/appendices}{点击此处}。
+
+% 第十一章
+\newpage
+
+\section{校对}
+
+\lstinline{需要校对的错误类型：}
+
+\begin{itemize}
+  \item 语法上的错误。
+  \item 叙事流程的问题，例如想法或观点的逻辑顺序有误。
+  \item 用词准确性的问题，例如用词多余，句子冗长等。
+  \item 排版错误，如字体、段落缩进、行间距、页边距等\footnote{这个就体现了\LaTeX{}写作的优势了。如果期刊有提供\LaTeX{}模板，那么只要专注于写作即可，不需要为排版问题而头疼。但如果期刊没有\LaTeX{}模板，还是用Word比较好。英文期刊很多会提供模板，例如Elsevier有统一的模板。中文期刊提供模板的不多，GiuHub上有很多中文期刊开源模板，但不确定是否适合用于投稿。}
+\end{itemize}
+
+\lstinline{常见的语法错误}
+
+\begin{itemize}
+  \item \textcolor{magenta}{affect/effect}：Effect通常是名词，含义为“结果”；但也可做动词，含义为“引起”或“完成”。Affect绝大多数时候是动词，含义为“影响”；但做名词时含义为“情感”。
+  \item \textcolor{magenta}{大写}：人名前的头衔要大写，因为这视为人名的一部分，如“President Zachary Taylor”。如果后文还会引用这个人名，则用小写，如“the president”。对于团体或组织，处理方法类似，如“the United States Department of Justice”到“the department”。一般来说，应当尽量少用大写字母。
+  \item \textcolor{magenta}{苍白的动词和形容词}：使用“to be”这样的被动语态，就失去了使用更有趣和准确的动词的机会。形容词的使用要避免过于通用和乏味，要能增加句子的意思。
+  \item \textcolor{magenta}{逗号误接}：指用逗号连接两个独立的子句。可以用分号或者句号代替，也可以用“and”、“because”或“but”之类的连词。
+  \item \textcolor{magenta}{compared with和compared to}:\lstinline{compared to}指本质上是不同顺序的事物之间的相似性；\lstinline{compared with}指本质上是同一顺序的事物之间的相似性。例如“life has been compared to a journey; Congress may be compared with the British Parliament”\footnote{“人生可以比作一段旅程”与“国会可以和英国议会相比较”的区别显而易见}。
+  \item \textcolor{magenta}{并列连词问题}：“but”、“and”、“yet”这样的连词连接的是语法上相近的两个部分，确保这些连词连接的元素在重要性和结构上是相同的。
+  \item \textcolor{magenta}{悬垂分词\footnote{Dangling participle，具体可以自查下，不难懂。}}：句子开头的分词短语必须和句子的主语一致。
+  \item \textcolor{magenta}{需要判断的“this”}：“this theory”或“this approach”之类，由于没有所指物，“this”会让读者感到困惑。
+  \item \textcolor{magenta}{需要判断的“it”}：与上一条类似，略。
+  \item \textcolor{magenta}{its和it's}：这个不用多说了，但注意学术写作中要避免“it's”这样的缩写。
+  \item \textcolor{magenta}{fewer和less}:可数用fewer，不可数用less。
+  \item \textcolor{magenta}{打断子句}：如“however”，左右两边都要加逗号。但是注意学术写作中要避免打断句子。
+  \item \textcolor{magenta}{非限制性定语从句}：用于修饰句子的主语，但对理解句子并不是必要的。典型如“which”引导的从句。
+  \item \textcolor{magenta}{限制性定语从句}：限制了所修饰名词的含义，对理解句子的意思至关重要。典型如“that”引导的从句。
+  \item \textcolor{magenta}{滥用分号}：分号用于分隔两个相关的独立子句。不要经常用分号以避免滥用，要谨慎使用。
+  \item \textcolor{magenta}{过度使用不具体的修饰词}：例如“super”和“very”。多少才是“very”？“very”能到什么程度？这些都是不具体的。学术写作用语要精确。
+  \item \textcolor{magenta}{看起来像复数词的单数词}：例如“each”、“every”、“everybody”、“nobody”、“anybody”，会让我们想到不止一个人或事，但它们在语法上是单数形式。
+  \item \textcolor{magenta}{动词时态不一致}：指在同一个从句中要保持相同的时态。
+\end{itemize}
+
+% 第十二章
+\newpage
+
+\section{引用}
+
+% 12.1节
+\subsection{为什么要引用文献？}
+
+\begin{itemize}
+  \item \textcolor{magenta}{让读者能够找到你使用的资料}：对资料来源的引用有助于读者拓展对该研究主题的认识。
+  \item \textcolor{magenta}{显示你对该研究主题进行过全面的文献回顾}：让你能够用批判性的视角来展示你的研究，增加可信度。
+  \item \textcolor{magenta}{其他研究者的观点可以支撑你的论点}：进一步强调自己研究的重要性。
+  \item \textcolor{magenta}{学术抄袭问题}：在学术写作中，一定要解释清楚哪些东西是你自己的，哪些来源于其他人的工作。
+\end{itemize}
+
+% 12.2节
+\subsection{学术抄袭}
+
+对于学术抄袭的指控与意图无关。换句话说，读者无法分辨引用的缺失是你故意的还是单纯忘记了，因此对该部分的校对是很有必要的。这就是为什么你在写作过程中要记录下所有使用过的东西，这样可以方便校对。
+
+\lstinline{哪些内容是需要引用的？}
+
+\begin{itemize}
+  \item 其他人的想法、观点或理论。
+  \item 使用或修改其他研究的非文字内容（图表之类）。
+  \item 任何不是常识的信息。
+  \item 其他人的口头或书面文字。
+  \item 改写其他人说过或写过的话。
+\end{itemize}
+
+
+
+
+
+\end{document}

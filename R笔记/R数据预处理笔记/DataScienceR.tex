@@ -1,0 +1,500 @@
+\documentclass[cn,hazy,blue,14pt,screen]{elegantnote}
+% \documentclass[cn,hazy,blue,14pt,normal]{elegantnote}
+
+% 导言区
+
+\title{R语言数据预处理\textcolor{orange}{笔记}}
+
+\author{缪啸宇}
+\institute{南航经管}
+\date{\zhtoday}
+
+\usepackage{array}
+\usepackage{listings}   % 这个包是用于美化代码块的
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\lstset{  % 这个是代码块的格式设置
+ columns=fixed,       
+ numbers=left,                                        % 在左侧显示行号
+ numberstyle=\tiny\color{gray},                       % 设定行号格式
+ frame=none,                                          % 不显示背景边框
+ backgroundcolor=\color[RGB]{245,245,244},            % 设定背景颜色
+ keywordstyle=\color[RGB]{40,40,255},                 % 设定关键字颜色
+ numberstyle=\footnotesize\color{darkgray},           
+ commentstyle=\it\color[RGB]{0,96,96},                % 设置代码注释的格式
+ stringstyle=\rmfamily\slshape\color[RGB]{128,0,0},   % 设置字符串格式
+ showstringspaces=false,                              % 不显示字符串中的空格
+ language=R,                                          % 设置语言
+}
+
+% ———————————————————————————
+% 正文区
+\begin{document}
+
+\maketitle
+
+\centerline{
+  \includegraphics{lijie}}
+
+% 第一章 
+\newpage    % 不加这个命令的话，正文内容会出现的封面中。这个是让正文从新的一页开始的命令
+\section{数据导入工具}
+\noindent 需要掌握：
+\begin{itemize}
+    \item R语言如何读取不同类型的数据文件
+    \item 读取数据常用的R包
+    \item 不同R包中相似函数的优缺点
+    \item 数据读取函数的常用参数设置
+    \item 处理规则和不规则原始数据文件
+\end{itemize}
+
+% 1.1节
+\subsection{utils——一个自带的基础包}
+utils不是专门用来进行数据导入的。utils比较底层，是用来编程和开发R包的。导入数据用到这个包是为了学习时事半功倍。
+
+% 1.1.1节
+\subsubsection{read.csv/csv2——逗号分隔}
+.csv = comma-separated values，即每个数据值用逗号隔开，因此本质上是一种.txt。而utils包中的\lstinline{read.csv/csv2}\footnote{read.csv是逗号分隔;read.csv2是分号分隔。一般用csv多，因为csv里小数点是“.”，而csv2里小数点是“,”。}正是用于快速读取csv文件。read.csv的简单实用方式如下\footnote{file参数可以省略，即read.csv("flights.csv")}：
+
+\begin{lstlisting}
+  flights <- read.csv(file = "flights.csv")
+\end{lstlisting} 
+
+要会使用\textcolor{red}{.rproj}，这个是R项目，将每一次数据分析过程都看作一个独立的项目。其作用是免去设置路径的麻烦，也减少了原始数据文件太多导致的各种隐患。
+
+数据导入，第一步通常是调用str函数来进行初步检视：
+
+\begin{lstlisting}
+  str(object = flights)
+\end{lstlisting} 
+
+str函数用于检视数据的结构、变量名称和类型等。除了str外，还有其他检视数据集的函数如head、tail、view等。检视数据集的意义在于.csv文件并不一定是逗号分隔的。例如read.csv读取Tab分隔的文件就会出现把所有数据读取到了一列中的情况。这在检视结果中可以看出。该问题可以用指定分隔符参数解决，将\textcolor{magenta}{$\backslash$t}指定给sep参数后就可以用read.csv读取Tab分隔的csv文件，如下：
+
+\begin{lstlisting}
+  flights3 <- read.csv(file = "flights1.csv", sep = "\t")
+  str(flights3)
+\end{lstlisting}
+
+read.csv默认将所有字符型数据都读成因子型（Factor），这会对后续处理带来麻烦，因此将字符因子化关掉，用\textcolor{magenta}{stringsAsFactors}参数:
+
+\begin{lstlisting}
+  flights_str <- read.csv("flightsstrings.csv", sep = "\t", stringsAsFactors = FALSE)
+  str(flights_str)
+\end{lstlisting}
+
+% 1.1.2节
+\subsubsection{read.delim/delim2——tab分隔}
+\lstinline{read.delim/delim2}\footnote{delim读取小数点是“.”的数据；delim2读取小数点是“,”的数据}是专门处理tab分隔的数据文件的。
+
+其与read.csv的唯一不同只是参数\textcolor{magenta}{sep = "$\backslash$t"}。因此和前面差不多，read.delim会在原始数据中不断寻找tab分隔符，如果莫得的话就会和前面一样将所有变量都挤在一列中。实例代码如下，可以看出和read.csv的参数格式相同；还可以看出其本质是通过read.table执行的\footnote{read.csv/csv2/delim/delim2的母函数都是read.table}。
+
+\begin{lstlisting}
+  read.delim
+\end{lstlisting}
+
+% 1.1.3节
+\subsubsection{read.table——任意分隔符}
+
+\lstinline{read.table}函数将文件读取成数据框的格式，示例：
+
+\begin{lstlisting}
+  flights <- read.table("flights.csv", header = TRUE)
+  head(x = flights)
+\end{lstlisting}
+
+上面head函数类似str函数，只不过head函数是从上到下显示，str函数是从左到右显示。一般推荐两个都运行下，head方便与原始数据比对，str显示所保存的数据框属性、变量类型等信息。
+
+\begin{itemize}
+  \item 如果不将header设置为TRUE的话，原数据里变量名称这一行就会变成观测值的第一行，变量名会被函数重新分配一个V1。
+  \item 如果不将分隔符sep参数设置为“,”的话，由于read.table的默认分隔符是空白\footnote{空白≠空格。那等于啥啊草，书里也没说。}，会导致所有变量挤在一列中。
+  \item 不要忘记加上\textcolor{magenta}{stringsAsFactors = FALSE}，让字符型变量不要变成因子型。
+  \item 关于缺失值的处理感觉这个讲得不太好，需要另外查一下。
+\end{itemize}
+
+数据集里出现默认值（NA）或空白（“ ”）很常见。理论上，默认值仍是观测值，而空白可能不是数据。这个可以拓展的东西比较多，这边之后可以放一个超链接。
+
+% 1.2节
+\subsection{readr——进阶数据读取}
+\textcolor{red}{readr}的优势：
+
+\begin{itemize}
+  \item 更快。
+  \item 默认设置简洁。会自动解析每列数据类型并显示解析结果，无需设置stringAsFactors。
+  \item 对数据类型的解析更准确\footnote{read.table在甄别数据属性时，只会对起始5行的观测值评估；readr是1000行。这在处理空白行时免去了很多麻烦。}。
+\end{itemize}
+
+readr中常用的数据读取函数：
+
+\begin{itemize}
+  \item \lstinline{read_delim}\footnote{read\_delim是read\_csv/csv2/tsv的母函数，因此可以直接调用子函数。其分别对应utils中的read.csv/csv2/delim。}
+  \item read\_fwf
+  \item read\_lines
+  \item read\_log
+  \item read\_table
+\end{itemize}
+
+\lstinline{read_delim}中比较重要的参数：
+
+\begin{itemize}
+  \item file：路径+文件名\footnote{.gz/bz2/xz/zip的会自动解压缩；http(s)://和ftp(s)://会下载到本地}。
+  \item delim：每行的分隔符，如“,”和“$\backslash$t”。不过在三个子函数中就无需设置，只是母函数没有默认值而已。
+  \item skip：跳过几行读取原始数据文件，默认为0，即不跳过。
+  \item col\_names：TRUE时原始数据文件第一行用作列名，且不在数据集内。其他的自查。
+  \item col\_types：列的数据类型，内容较多，自查。
+\end{itemize}
+
+read\_csv运行后会在console中显示解析后每一列的属性，可以快速甄别哪一列的属性和期望不符。
+
+\begin{lstlisting}
+  library(readr)
+  read_csv("flights.csv")
+\end{lstlisting}
+
+% 1.3节
+\subsection{utils vs readr}
+
+\begin{itemize}
+  \item 用utils导入数据：莫得网络，装不了包，不想多加载一个包。
+  \item 用readr导入数据：不介意多加载一个包，喜欢用默认设置。
+  \item 用data.table包中的fread函数：文件个数（>10）和文件大小（>1MB）较大时用。
+\end{itemize}
+
+% 1.4节
+\subsection{readxl——Excel文件}
+
+读取Excel文件的必备包，只有五个函数：
+
+\begin{itemize}
+  \item excel\_format和excel\_sheets：探测性函数
+  \item readxl\_example：引用例子
+  \item cell-specification：读取特定单元格
+  \item \lstinline{read_excel}：最重要的，读取Excel文件
+\end{itemize}
+
+现在数据会被读取为tibble格式，可以理解为提升版的data.frame。
+
+% 1.5节
+\subsection{DBI——数据库查询下载}
+
+\textcolor{magenta}{DBI包}能够方便地与数据库进行交互，需要有以下的前提：
+\begin{itemize}
+  \item 已知数据库类型（如MySQL、MongoDB等）
+  \item 安装了相应数据库类型的R包
+  \item 数据库服务器地址
+  \item 数据库名称
+  \item 接入数据库的权限、账号、密码
+  \item 安装dplyr包用来本地化数据库中的数据
+\end{itemize}
+
+R与数据库交互的流程为：建立连接→发送查询请求→获取相关数据。需要三个必备的包\footnote{DBI和RPostgreSQL建立与数据库的连接和发送请求；dplyr将数据保存到本地}：
+
+\begin{lstlisting}
+  library(DBI)
+  library(dplyr)
+  library(RPostgreSQL)
+\end{lstlisting}
+
+\begin{itemize}
+  \item dbConnect：连接服务器，需要在单引号中输入服务器地址、名称、权限等信息。
+  \item dbListTables：查询数据库中的详细内容，用字符串向量的格式返回。无内容则返回空值。
+\end{itemize}
+
+这块的内容这里只是简单介绍，数据库交互详细可以查阅其他资料。
+
+% 1.6节
+\subsection{pdftools——PDF文件}
+一般很少遇到PDF文件，这些大多是学术期刊、杂志、电子书籍等。不过在文本挖掘（Text Mining）和主题模型（Topic Modelling）预测中，pdftools包必备。该包只有两个母函数：从PDF中提取数据（pdf\_info）；将文件渲染成PDF格式。
+
+\textcolor{magenta}{pdf\_info}母函数下一共有6个子函数：
+
+\begin{itemize}
+  \item pdf\_info：读取PDF文件的基本信息。
+  \item pdf\_text：提取所有文字和非文字信息，包括分页符、换行符等。
+  \item pdf\_data：提取数字型数据（实际使用起来效果有差异）。
+  \item pdf\_fonts：提取字体信息。
+  \item pdf\_attachments：提取文档附件。
+  \item pdf\_toc：提取文档目录。
+\end{itemize}
+
+这几个函数所用参数完全相同，只有三个：
+
+\begin{itemize}
+  \item pdf：PDF文件路径，可以是网络链接。
+  \item opw：PDF文件所有者的密码。
+  \item upw：PDF文件用户的密码。
+\end{itemize}
+
+用pdf\_text提取文档时，全部内容被提取为一个字符串向量，每页内容单独放置于一个字符串中。
+
+% 1.7节
+\subsection{jsonlite——JSON文件}
+
+JavaScript object Notation（JSON）通常作为不同语言之间互相交流信息的文件。jsonlite包能够将JSON格式文件完整解析读取到R语言中，也可以将R对象（object）输出为JSON格式。
+
+读取JSON文件使用的是\textcolor{magenta}{fromJSON}函数。
+
+% 1.8节
+\subsection{本章小结}
+
+不同格式数据文件读取所需要的R包：
+
+\begin{itemize}
+  \item readr/utils：平面文件格式，如.csv/txt
+  \item readxl：Excel格式，如.xlsx/xls
+  \item DBI：数据库格式，如.db
+  \item pdftools：PDF格式
+  \item jsonlite：JSON格式
+\end{itemize}
+
+
+% 第二章
+\newpage
+\section{数据清理工具}
+
+原始数据基本都是脏的，无论人工还是传感器采集。原因很多，普遍例如：
+
+\begin{itemize}
+  \item 不同采样人员的记录数据方式不同
+  \item 录入数据时的失误
+  \item 传感器断电导致大段数据默认
+  \item 不同国家地区对时间日期制式的标准不同
+\end{itemize}
+
+在整个数据分析过程中，数据清洗可能占到80\%的时间。耗时是因为数据清洗并非一次性工作，数据清洗→计算→可视化是一个动态循环。根据分析需求不同，清理的思路和方式也不同。例如对默认值可能采取完全移除、部分移除或替换等方式。
+
+本章需要掌握：
+
+\begin{itemize}
+  \item 数据的“\textcolor{magenta}{脏}”和“\textcolor{magenta}{干净}”的标准是什么？
+  \item 数据清理的指导原则
+  \item 数据清理的相关包（\textcolor{magenta}{tibble、tidyr、lubridate、stringr}等）
+\end{itemize}
+
+% 2.1节
+\subsection{基本概念}
+
+只要不满足当前分析要求的数据集都可以说是“脏”的。而对“干净”数据可以总结为：
+
+\begin{itemize}
+  \item 属性相同的变量自成一列
+  \item 单一观测自成一行
+  \item 每个数据值必须独立存在
+\end{itemize}
+
+在R环境中“长”\footnote{同类型变量单独成列}数据比“宽\footnote{多个同类或者不同类的变量并存}”数据计算速度更快\footnote{两者区别文字说不清，网上找一下相关列表一眼就能看懂}，两者转换只需要\textcolor{magenta}{gather}函数（见2.3节）
+
+另外不同来源的数据应该单独成表独立存在。例如元数据\footnote{meta data，解释变量名称或数据背景的数据。通常包含坐标、指标的具体含义等解释性信息}\href{http://www.ruanyifeng.com/blog/2007/03/metadata.html}{（此处有介绍）}不应当与原始数据本身同时存在在一个数据集中。只有需要解释原始数据的时候才调用元数据。
+
+% 2.2节
+\subsection{tibble包——数据集准备}
+
+% 2.2.1节
+\subsubsection{为什么要用tibble？}
+
+tibble包是用R中一个数据存储格式命名的。read.csv会将数据读取在一个data.frame（数据框）当中；但read\_csv有三种数据存储格式：tbl\_df、tbl和data.frame。那么为什么要用tbl格式？原因如下：
+
+\begin{itemize}
+  \item 稳定性好，可以完整保存变量名称和属性。
+  \item 更多的信息展示、警示提醒，有利于及时发现错误。
+  \item 新输出方式，在浏览数据时屏幕利用效率更佳。
+\end{itemize}
+
+当然tbl格式也有缺陷，就是data.frame格式用了很久，一些早期函数调用新的tbl格式可能不兼容。但是因为data.frame在处理变量名称的时候，有时会悄悄改动名称来满足自己的需求，导致会出现难以察觉的意料之外的错误，非常要命。
+
+另外查看data.frame中变量类型往往需要str函数，但tbl无须调用函数，直接输入数据集名称即可。tbl会根据console窗口大小自动调整展示内容；而data.frame直接在console中打出来，会将小于1000行1000列的所有内容展示出来，且还不会展示变量属性等内容。孰优孰劣显而易见。
+
+% 2.2.2节
+\subsubsection{创建tbl格式}
+
+用\textcolor{magenta}{tibble}或\textcolor{magenta}{tribble}函数创建新数据框，创建方法与data.frame函数一致。代码如下\footnote{int代表integer整数，dbl代表double浮点型数据类型}：
+
+\begin{lstlisting}
+  library(tibble)
+  tibble(a = 1:6, b = a*2)
+\end{lstlisting}
+
+而tribble函数适合创建小型数据集（如元数据）。手动输入数据，变量名称用“$\sim$”开头，“,”结束，数据值用逗号分隔。元数据有时比较杂乱，用软件清理费时费力，但肉眼能直接看出关键信息时，直接用tribble函数手动生成会更高效。具体例子可以自查。
+
+% 2.2.3节
+\subsubsection{as\_tibble——转换已有格式的数据集}
+
+\begin{itemize}
+  \item is\_tibble：测试目标对象是否已经是tbl格式。
+  \item \textcolor{magenta}{as\_tibble}：将vector、matrix、list\footnote{列表格式转换的时候要注意列表中要素的长度，这个具体见书P.36}和data.frame转换成tbl。
+  \item enframe：也是tibble中的格式转换函数，优势在于可对向量数据进行编号。
+\end{itemize}
+
+% 2.2.4节
+\subsubsection{add\_row/column}
+
+\textcolor{magenta}{add\_row/column}函数类似Excel中任意插入或删除一行/列数据。
+
+baseR\footnote{baseR指的应该是R语言自带的基础功能，不加任何包}也可以新增行或列：
+
+\begin{lstlisting}
+  f <- tibble(i = 1:3, j = c("John","Sam","Joy"))   # 创建一个tbl。
+  f$k <- 3:1                                        # 用$来新增一列名为k的变量，数值为3、2、1。
+  f[nrow(f)+1, ] <- c(4,"Jon",0)                    # nrow是计算行数，左边即为增加一行的意思。
+\end{lstlisting}
+
+上面;f[nrow(f)+1, ]中，中括号紧跟在数据框后面，可以作为索引来选择数据框中的特定数值。逗号前后分别为行、列索引\footnote{[行,列]}。因此与之相似的，f[ ,ncol(f)+1]就是新增一列的意思。
+
+这tibble包中两个小函数实用之处在于，可以随时随地任意新增行或列数据到指定位置，不用像上面baseR中只能在数据尾部或已有变量后面新增行或列。tibble包中\textcolor{magenta}{add\_row}和\textcolor{magenta}{add\_column}使用例：
+
+\begin{lstlisting}
+  add_row(f, i = 4, j = "Jon")                      # 因为只指定了两个变量的值，所以未指定部分会自动填入默认值NA。
+  add_row(f, i = 4, j = "Jon", .before = 3)         # 在第三行之前插入一行新数据。
+  add_row(f, i = 4, j = "Jon", .after = 1)          # 在第一行之后插入新数据。
+  add_column(f, l = nrow(f):1, .after = 1)          # 在第一列之后插入新变量，注意这里l的意思是从f的行数到1，即4到1。想了想确实应该这么写。
+\end{lstlisting}
+
+% 2.3节
+\subsection{tidyr——数据清道夫}
+
+% 2.3.1节
+\subsubsection{为什么用tidyr？}
+
+优势：
+
+\begin{itemize}
+  \item 易上手：函数名称简洁直观，可读性强
+  \item 易使用：默认设置可以满足大部分需求
+  \item 易记忆：不同函数的参数结构清晰
+  \item 不易出现未知错误：处理数据过程中完整保留了变量属性和数据格式
+\end{itemize}
+
+% 2.3.2节
+\subsubsection{gather/spread——长、宽数据转换}
+
+\lstinline{什么是长数据？}全部变量名为一列，相关数值为一列。\textcolor{magenta}{gather}函数就是将宽数据转换成长数据。具体流程是用管道函数“\%>\%\footnote{forward-pipe operator，需要magrittr包，可以通过“?'\%>\%'”来查看具体用法。}”\href{https://www.jianshu.com/p/c65dbce983dd}{（此处有介绍）}将脏数据框df传递给gather函数。管道函数可以使得无须重新引用df，直接用“.”代替。指定指标列为key，数值列为value，保留列序号\footnote{负号+列名进行设置}，并移除默认值。这会得到一个中间产物数据框，但仍然不干净，因为性别和key在同一列中。要用管道函数再次拆分，将key拆分为两列（性别+key），传递给函数separate。具体如下：
+
+\begin{lstlisting}
+  df %>%
+  gather(data = ., key = key, value = value, ... = -序号, na.rm = T) %>%
+  separate(data = ., key, into = c("性别", "key"))
+\end{lstlisting}
+
+因为tidy系列函数结构简洁清晰，所以熟悉之后可以省略参数名，记住位置即可：
+
+\begin{lstlisting}
+  df %>%
+  gather(key, value, -序号, na.rm = T) %>%
+  separate(key, c("性别", "key"))
+\end{lstlisting}
+
+如果要反过来，将长数据变换成宽数据，就用\textcolor{magenta}{spread}函数。具体操作类似gather，略。
+
+% 2.3.3节
+\subsubsection{separate/unite——拆分合并列}
+
+\textcolor{magenta}{separate}函数类似Excel中的拆分列，该函数无法对一个单独的数值位置进行操作。\textcolor{magenta}{unite}是separate的逆向函数。
+
+% 2.3.4节
+\subsubsection{replace\_na/drop\_na——默认值处理工具}
+
+\textcolor{magenta}{replace\_na}和\textcolor{magenta}{drop\_na}可以通过对指定列的查询来将NA替换成需要的数值。前者是替换，后者是去除默认值。使用例：
+
+\begin{lstlisting}
+  df %>%
+  gather(key, value, -序号) %>%
+  separate(key, c("性别", "key")) %>%
+  replace_na(list(value = "missing"))
+\end{lstlisting}
+
+\begin{lstlisting}
+  df %>%
+  gather(key, value, -序号) %>%
+  separate(key, c("性别", "key")) %>%
+  drop_na()  
+\end{lstlisting}
+
+\textcolor{red}{提醒}：将所有默认值NA替换为0是很危险的，不推荐这么做。因为0代表数据存在而数值为0，但默认值NA代表数据存在或不存在两种情况，只是因为某些原因导致数据采集失败。
+
+% 2.3.5节
+\subsubsection{fill/complete——填充工具}
+
+处理日期或者计算累计值的时候，如果中间有默认值则意味着不完整或没法计算。\textcolor{magenta}{fill}函数就类似Excel的填充功能，自动填补默认的日期或等值。而complete函数不常用就不多介绍，主要是将变量和因子的各种组合全部罗列出来。
+
+% 2.3.6节
+\subsubsection{separate\_rows/nest/unnest——行数据处理}
+
+\begin{itemize}
+  \item \textcolor{magenta}{separate\_rows}：类似Excel的拆分单元格。一个数据单位中出现多个数值，就用该函数参照参数sep给出的参进行拆分，然后顺序放入同一列的不同行中，会自动增加行数。
+  \item \textcolor{magenta}{nest/unnest}：压缩和解压缩行数据。具体来说是将一个数据框压缩成新的数据框，其中包含列表型数据\footnote{这个找具体例子看一下就懂了，一目了然。}。
+\end{itemize}
+
+单独使用nest函数没有什么意义，但是配合循环或者purrr包的map函数家族时，功能性很强大。这个具体到后面看。另外注意unnest解压缩两列以上时，每一列中数据框的行数必须相等，否则无法成功解压。
+
+% 2.4节
+\subsection{lubridate日期时间处理}
+
+% 2.4.1节
+\subsubsection{为什么用lubridate？}
+
+传感器记录的数据为了避免闰年导致奇怪的错误，一般都是纯数字的日期格式，其问题是可读性较差。对日期的处理并不是如看似那么简单，而是和处理默认值相当的一大挑战。\textcolor{magenta}{lubridate}包的优势在于：
+
+\begin{itemize}
+  \item 自然语言书写编程语法，易于理解和记忆。
+  \item 融合了其他R包的时间处理函数，优化了默认配置。
+  \item 能轻松完成时间日期数据的计算任务。
+\end{itemize}
+
+% 2.4.2节
+\subsubsection{ymd/ymd\_hms——年月日还是日月年？}
+
+\textcolor{magenta}{ymd及其子函数}可以完整解析数字或字符串形式的日期格式，但也有例外\footnote{例如日期中对不同成分以类似双引号作为分隔符，或是对象为奇数等。}。\textcolor{magenta}{ymd\_hms}代表年月日时分秒。lubridate函数可以用默认设置解析偶数位的字符型向量，但偶数位必须大于6位，否则会产生NA\footnote{如果函数没有解析正确的时区，用Sys.timezone()或OlsonNames()来寻找并传参正确的时区。}。
+
+% 2.4.3节
+\subsubsection{year/month/week/day/hour/minute/second——时间单位提取}
+
+这些函数只能提取时间日期格式的对象，如常见的Date、POSIXct、POSIXlt、Period、chron、yearmon、yearqtr、zoo、zooreg等。
+
+% 2.4.4节
+\subsubsection{guess\_formats/parse\_date\_time——时间日期格式分析}
+
+baseR不适合解析英文月份简写的日期（如24\quad Jan\quad 2018这样的），但\textcolor{magenta}{guess\_formats}和\textcolor{magenta}{parse\_date\_time}能够方便解析，思路如下：
+
+\begin{itemize}
+  \item 用guess\_formats函数猜测解析对象的可能日期顺序及格式，需要先自己指定。
+  \item 复制guess\_formats函数的返回结果。
+  \item 执行parse\_date\_time，将复制的内容以字符串向量格式传参给函数。
+  \item 如果解析不彻底，需要手动组建日期时间格式加入到guess\_formats中的order参数。
+\end{itemize}
+
+使用例：
+
+\begin{lstlisting}
+  example_messyDate <- c("24 Jan 2018", 1802201810)
+  guess_formats(example_messyDatem c("mdY", "BdY", "Bdy", "bdY", "bdy", "dbY", "dmYH"))
+  parse_date_time(example_messyDate, orders = c("dObY", "dOmYH", "dmYH"))
+\end{lstlisting}
+
+% 2.5节
+\subsection{stringr字符处理函数}
+
+stringr的优点在于参数很少超过三个，参数在结构和名称上一致，逻辑清晰。简单的字符处理能极大地提高数据清理的效率。使用stingr包能：
+
+\begin{itemize}
+  \item 快速上手正则表达式——快速处理数据
+  \item 理解表达式的基本概念——为以后的复杂任务打基础
+\end{itemize}
+
+% 2.5.1节
+\subsubsection{baseR vs stringr}
+
+baseR中存在一些使用正则表达式处理字符串的函数，如grep母函数类（包括了最常用的gsub，这些在Linux中也常见）。stringr简单上手但是实际处理数据时比baseR慢。因此可以通过P.52的对照表，用stringr包中的函数练习字符处理能力，实际工作中用baseR中的函数来执行。使用例：
+
+\begin{lstlisting}
+  library(stringr)
+  example_txt <- "sub and gsub perform replacement of the first and all matches respectively."  # 创建练习用的字符串向量
+  str_repalce(string = example_txt, pattern = "a", replacement = "@") # 参数pattern是查询第一次出现的位置，参数replacement设置为替换
+  str_replace_all(string = example_txt, pattern = "a", replacement = "@") # 与上一行类似，只不过会将所有符合要求的部分全部替换掉
+\end{lstlisting}
+
+baseR中的sub和gsub函数逻辑与str\_replace和str\_replace\_all相同。
+
+% 2.5.2节
+\subsubsection{正则表达式基础}
+
+\end{document}
